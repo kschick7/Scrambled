@@ -5,25 +5,26 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.studio47.context.DisplayContext;
 import com.studio47.managers.GameStateManager;
 
 public class Scrambled extends ApplicationAdapter {
 	public static int WIDTH;
 	public static int HEIGHT;
 
-	public static OrthographicCamera camera;
-	private SpriteBatch batch;
+	private DisplayContext displayContext;
 	private GameStateManager gameStateManager;
 	
 	@Override
 	public void create () {
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
-		camera = new OrthographicCamera(WIDTH, HEIGHT);
+		OrthographicCamera camera = new OrthographicCamera(WIDTH, HEIGHT);
 		camera.translate(WIDTH / 2, HEIGHT / 2);
 		camera.update();
 
-		batch = new SpriteBatch();
+		displayContext = new DisplayContext(new SpriteBatch(), new ShapeRenderer(), camera);
 		gameStateManager = new GameStateManager();
 	}
 
@@ -31,14 +32,14 @@ public class Scrambled extends ApplicationAdapter {
 	public void render () {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		gameStateManager.draw(batch);
-		batch.end();
+		gameStateManager.update(Gdx.graphics.getDeltaTime());
+		displayContext.getSpriteBatch().begin();
+		gameStateManager.draw(displayContext);
+		displayContext.getSpriteBatch().end();
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
 		gameStateManager.dispose();
 	}
 }

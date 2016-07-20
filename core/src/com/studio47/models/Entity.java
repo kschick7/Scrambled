@@ -1,6 +1,7 @@
 package com.studio47.models;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.studio47.context.DisplayContext;
 
 /**
  * Created by Kyle on 7/19/2016.
@@ -15,6 +16,6 @@ public abstract class Entity {
     }
 
     public abstract void update(float dt);
-    public abstract void draw(SpriteBatch batch);
+    public abstract void draw(DisplayContext displayContext);
     public abstract void dispose();
 }
