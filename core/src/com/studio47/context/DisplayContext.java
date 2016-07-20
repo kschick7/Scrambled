@@ -11,8 +11,9 @@ public class DisplayContext {
     private SpriteBatch spriteBatch;
     private ShapeRenderer shapeRenderer;
     private Camera camera;
+    private static DisplayContext displayContext;
 
-    public DisplayContext(SpriteBatch spriteBatch, ShapeRenderer shapeRenderer, Camera camera) {
+    private DisplayContext(SpriteBatch spriteBatch, ShapeRenderer shapeRenderer, Camera camera) {
         this.spriteBatch = spriteBatch;
         this.shapeRenderer = shapeRenderer;
         this.shapeRenderer.setProjectionMatrix(camera.combined);
@@ -37,5 +38,13 @@ public class DisplayContext {
 
     public int getWidth() {
         return (int)camera.viewportWidth;
+    }
+
+    public static void set(SpriteBatch batch, ShapeRenderer shapeRenderer, Camera camera) {
+        displayContext = new DisplayContext(batch, shapeRenderer, camera);
+    }
+
+    public static DisplayContext get() {
+        return displayContext;
     }
 }

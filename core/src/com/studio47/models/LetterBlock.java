@@ -39,8 +39,8 @@ public class LetterBlock extends Entity {
         }
     }
 
-    public void draw(DisplayContext displayContext) {
-        ShapeRenderer shapeRenderer = displayContext.getShapeRenderer();
+    public void draw() {
+        ShapeRenderer shapeRenderer = DisplayContext.get().getShapeRenderer();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(1, 1, 0, 1);
         shapeRenderer.rect(x, y, WIDTH, HEIGHT);

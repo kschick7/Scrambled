@@ -10,15 +10,14 @@ public abstract class GameState {
     protected GameStateManager gameStateManager;
     protected DisplayContext displayContext;
 
-    protected GameState(GameStateManager gameStateManager, DisplayContext displayContext) {
+    protected GameState(GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
-        this.displayContext = displayContext;
         init();
     }
 
     public abstract void init();
     public abstract void update(float dt);
-    public abstract void draw(DisplayContext displayContext);
+    public abstract void draw();
     public abstract void dispose();
 
 }

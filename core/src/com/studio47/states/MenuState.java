@@ -9,8 +9,8 @@ import com.studio47.managers.GameStateManager;
  */
 public class MenuState extends GameState {
 
-    public MenuState(GameStateManager gameStateManager, DisplayContext displayContext) {
-        super(gameStateManager, displayContext);
+    public MenuState(GameStateManager gameStateManager) {
+        super(gameStateManager);
     }
 
     public void init() {
@@ -21,7 +21,7 @@ public class MenuState extends GameState {
 
     }
 
-    public void draw(DisplayContext displayContext) {
+    public void draw() {
         if (Gdx.input.isTouched()) {
             gameStateManager.setState(GameStateManager.State.PLAY);
         }

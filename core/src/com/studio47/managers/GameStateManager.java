@@ -29,7 +29,7 @@ public class GameStateManager {
 
         switch (state) {
             case State.MENU:
-                currentState = new MenuState(this, display);
+                currentState = new MenuState(this);
                 break;
             case State.PLAY:
                 currentState = new PlayState(this);
@@ -43,8 +43,8 @@ public class GameStateManager {
         currentState.update(dt);
     }
 
-    public void draw(DisplayContext displayContext) {
-        currentState.draw(displayContext);
+    public void draw() {
+        currentState.draw();
     }
 
     public void dispose() {

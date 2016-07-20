@@ -13,20 +13,18 @@ public class LetterGrid {
     public static final int GRID_HEIGHT = 7;
 
     private ArrayList<ArrayList<LetterBlock>> grid;
-    private DisplayContext displayContext;
     private int widthOffset;
     private int heightOffset;
 
-    public LetterGrid(DisplayContext displayContext) {
-        this.displayContext = displayContext;
-        this.widthOffset = (displayContext.getWidth() - (5 * LetterBlock.getWidth())) / 2;
-        this.heightOffset = (displayContext.getHeight() - (5 * LetterBlock.getHeight())) / 2;
+    public LetterGrid() {
+        this.widthOffset = (DisplayContext.get().getWidth() - (5 * LetterBlock.getWidth())) / 2;
+        this.heightOffset = (DisplayContext.get().getHeight() - (5 * LetterBlock.getHeight())) / 2;
         this.grid = new ArrayList<ArrayList<LetterBlock>>();
     }
 
     public void addBlockToColumn(int col, char value) {
         float x = widthOffset + col * LetterBlock.getWidth();
-        float y = displayContext.getHeight() + LetterBlock.getHeight() * (1 + getColumnHeight(col));
+        float y = DisplayContext.get().getHeight() + LetterBlock.getHeight() * (1 + getColumnHeight(col));
     }
 
     public int getColumnHeight(int col) {

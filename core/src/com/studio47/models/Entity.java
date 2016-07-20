@@ -16,6 +16,6 @@ public abstract class Entity {
     }
 
     public abstract void update(float dt);
-    public abstract void draw(DisplayContext displayContext);
+    public abstract void draw();
     public abstract void dispose();
 }

@@ -15,22 +15,22 @@ public class PlayState extends GameState {
     private String word;
     private boolean selecting;
 
-    public PlayState(GameStateManager gameStateManager, DisplayContext displayContext) {
-        super(gameStateManager, displayContext);
+    public PlayState(GameStateManager gameStateManager) {
+        super(gameStateManager);
     }
 
     public void init() {
         System.out.println("Game State = PLAY");
-        letterGrid = new LetterGrid(displayContext);
+        letterGrid = new LetterGrid();
         letterBlock = new LetterBlock(120, 120, 'A');
         word = "";
         selecting = false;
 
-        for (int i = 0; i < LetterGrid.GRID_HEIGHT; i++) {
-            for (int j = 0; j < LetterGrid.GRID_WIDTH; j++) {
-                letterGrid.addBlockToColumn(j, 'A');
-            }
-        }
+//        for (int i = 0; i < LetterGrid.GRID_HEIGHT; i++) {
+//            for (int j = 0; j < LetterGrid.GRID_WIDTH; j++) {
+//                letterGrid.addBlockToColumn(j, 'A');
+//            }
+//        }
     }
 
     public void update(float dt) {
@@ -47,8 +47,8 @@ public class PlayState extends GameState {
         letterBlock.update(dt);
     }
 
-    public void draw(DisplayContext displayContext) {
-        letterBlock.draw(displayContext);
+    public void draw() {
+        letterBlock.draw();
     }
 
     public void dispose() {
