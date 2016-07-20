@@ -8,26 +8,61 @@ import java.util.Collections;
 /**
  * Created by Kyle on 7/19/2016.
  */
-public class LetterGrid {
+public class LetterGrid extends Entity {
     public static final int GRID_WIDTH = 5;
     public static final int GRID_HEIGHT = 7;
 
-    private ArrayList<ArrayList<LetterBlock>> grid;
+    private LetterBlock[][] grid;
     private int widthOffset;
     private int heightOffset;
 
     public LetterGrid() {
-        this.widthOffset = (DisplayContext.get().getWidth() - (5 * LetterBlock.getWidth())) / 2;
-        this.heightOffset = (DisplayContext.get().getHeight() - (5 * LetterBlock.getHeight())) / 2;
-        this.grid = new ArrayList<ArrayList<LetterBlock>>();
+        super(0, 0);
+        this.widthOffset = (DisplayContext.get().getWidth() - (GRID_WIDTH * LetterBlock.getWidth())) / 2;
+        this.heightOffset = (DisplayContext.get().getHeight() - (GRID_HEIGHT * LetterBlock.getHeight())) / 2;
+        this.grid = new LetterBlock[GRID_HEIGHT][GRID_WIDTH];
     }
 
     public void addBlockToColumn(int col, char value) {
+        int row = getColumnHeight(col);
         float x = widthOffset + col * LetterBlock.getWidth();
-        float y = DisplayContext.get().getHeight() + LetterBlock.getHeight() * (1 + getColumnHeight(col));
+        float y = DisplayContext.get().getHeight() + (LetterBlock.getHeight() + 30) * (1 + row)+ 20 * col;
+        grid[row][col] = new LetterBlock(x, y, value);
+        grid[row][col].fallToCoordinate(heightOffset + LetterBlock.getHeight() * row);
     }
 
     public int getColumnHeight(int col) {
-        return 0;
+        for (int i = 0; i < GRID_HEIGHT; i++) {
+            if (grid[i][col] == null)
+                return i;
+        }
+        return GRID_HEIGHT;
+    }
+
+    public void update(float dt) {
+        for (int i = 0; i < GRID_HEIGHT; i++) {
+            for (int j = 0; j < GRID_WIDTH; j++) {
+                if (grid[i][j] != null)
+                    grid[i][j].update(dt);
+            }
+        }
+    }
+
+    public void draw() {
+        for (int i = 0; i < GRID_HEIGHT; i++) {
+            for (int j = 0; j < GRID_WIDTH; j++) {
+                if (grid[i][j] != null)
+                    grid[i][j].draw();
+            }
+        }
+    }
+
+    public void dispose() {
+        for (int i = 0; i < GRID_HEIGHT; i++) {
+            for (int j = 0; j < GRID_WIDTH; j++) {
+                if (grid[i][j] != null)
+                    grid[i][j].dispose();
+            }
+        }
     }
 }
