@@ -2,16 +2,13 @@ package com.studio47.models;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.studio47.context.Constants;
 import com.studio47.context.DisplayContext;
 
 /**
  * Created by Kyle on 7/19/2016.
  */
 public class LetterBlock extends Entity {
-    private static final float GRAVITY = 400;
-    private static final int WIDTH = 60;
-    private static final int HEIGHT = 60;
-
     private char value;
     private boolean selected;
     private float fallDistance;
@@ -20,7 +17,7 @@ public class LetterBlock extends Entity {
     private Texture coverTexture;
 
     public LetterBlock(float x, float y, char value) {
-        super(x, y);
+        super(x, y, Constants.BLOCK_WIDTH, Constants.BLOCK_HEIGHT);
         this.value = value;
         this.selected = false;
         this.fallDistance = 0;
@@ -31,7 +28,7 @@ public class LetterBlock extends Entity {
 
     public void update(float dt) {
         if (fallDistance > 0) {
-            fallVelocity += GRAVITY * dt;
+            fallVelocity += Constants.GRAVITY * dt;
             float distance = fallVelocity * dt;
             if (fallDistance - distance <= 0) {
                 y -= fallDistance;
@@ -68,7 +65,7 @@ public class LetterBlock extends Entity {
 
     public void fallNumRows(int rows) {
         if (fallDistance == 0)
-            fallDistance = HEIGHT * rows;
+            fallDistance = getHeight() * rows;
     }
 
     public void fallToCoordinate(float y_dest) {
@@ -84,13 +81,4 @@ public class LetterBlock extends Entity {
     public boolean isSelectable() {
         return fallDistance == 0 && !selected;
     }
-
-    public static int getWidth() {
-        return WIDTH;
-    }
-
-    public static int getHeight() {
-        return HEIGHT;
-    }
-
 }

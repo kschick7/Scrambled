@@ -1,6 +1,7 @@
 package com.studio47.states;
 
 import com.badlogic.gdx.Gdx;
+import com.studio47.context.Constants;
 import com.studio47.managers.GameStateManager;
 import com.studio47.models.LetterBlock;
 import com.studio47.models.LetterGrid;
@@ -23,8 +24,8 @@ public class PlayState extends GameState {
         word = "";
         selecting = false;
 
-        for (int i = 0; i < LetterGrid.GRID_HEIGHT; i++) {
-            for (int j = 0; j < LetterGrid.GRID_WIDTH; j++) {
+        for (int i = 0; i < Constants.GRID_COLUMN_LENGTH; i++) {
+            for (int j = 0; j < Constants.GRID_ROW_LENGTH; j++) {
                 letterGrid.addBlockToColumn(j, 'A');
             }
         }
@@ -40,7 +41,7 @@ public class PlayState extends GameState {
         }
 
         if (selecting) {
-            LetterBlock letterBlock = letterGrid.getTouchedBlock(Gdx.input.getX(), Gdx.input.getY());
+            LetterBlock letterBlock = letterGrid.getTouchedBlock();
             if (letterBlock != null) {
                 letterBlock.setSelected(true);
                 word += letterBlock.getValue();
