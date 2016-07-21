@@ -8,7 +8,7 @@ import com.studio47.context.DisplayContext;
  * Created by Kyle on 7/19/2016.
  */
 public class LetterBlock extends Entity {
-    private static final float GRAVITY = 150;
+    private static final float GRAVITY = 400;
     private static final int WIDTH = 60;
     private static final int HEIGHT = 60;
 
@@ -36,6 +36,7 @@ public class LetterBlock extends Entity {
                 fallDistance -= distance;
                 y -= distance;
             }
+            System.out.println(fallVelocity);
         }
     }
 

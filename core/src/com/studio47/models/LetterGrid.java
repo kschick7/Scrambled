@@ -26,7 +26,7 @@ public class LetterGrid extends Entity {
     public void addBlockToColumn(int col, char value) {
         int row = getColumnHeight(col);
         float x = widthOffset + col * LetterBlock.getWidth();
-        float y = DisplayContext.get().getHeight() + (LetterBlock.getHeight() + 30) * (1 + row)+ 20 * col;
+        float y = DisplayContext.get().getHeight() + (LetterBlock.getHeight() + 60) * (1 + row)+ 20 * col;
         grid[row][col] = new LetterBlock(x, y, value);
         grid[row][col].fallToCoordinate(heightOffset + LetterBlock.getHeight() * row);
     }
