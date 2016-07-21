@@ -1,5 +1,9 @@
 package com.studio47.models;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.studio47.context.DisplayContext;
@@ -16,6 +20,8 @@ public class LetterBlock extends Entity {
     private boolean selected;
     private float fallDistance;
     private float fallVelocity;
+    private Texture blockTexture;
+    private Texture coverTexture;
 
     public LetterBlock(float x, float y, char value) {
         super(x, y);
@@ -23,6 +29,8 @@ public class LetterBlock extends Entity {
         this.selected = false;
         this.fallDistance = 0;
         this.fallVelocity = 0;
+        this.blockTexture = new Texture("A_block.png");
+        this.coverTexture = new Texture("block_selected_cover.png");
     }
 
     public void update(float dt) {
@@ -36,16 +44,15 @@ public class LetterBlock extends Entity {
                 fallDistance -= distance;
                 y -= distance;
             }
-            System.out.println(fallVelocity);
         }
     }
 
     public void draw() {
-        ShapeRenderer shapeRenderer = DisplayContext.get().getShapeRenderer();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(1, 1, 0, 1);
-        shapeRenderer.rect(x, y, WIDTH, HEIGHT);
-        shapeRenderer.end();
+        SpriteBatch spriteBatch = DisplayContext.get().getSpriteBatch();
+        spriteBatch.draw(blockTexture, x, y);
+        spriteBatch.draw(coverTexture, x, y);
+
+//        bitmapFont.draw(DisplayContext.get().getSpriteBatch(), "A", x + 20, y + 20);
     }
 
     public void dispose() {}
