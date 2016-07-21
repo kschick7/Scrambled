@@ -1,9 +1,7 @@
 package com.studio47.states;
 
 import com.badlogic.gdx.Gdx;
-import com.studio47.context.DisplayContext;
 import com.studio47.managers.GameStateManager;
-import com.studio47.models.LetterBlock;
 import com.studio47.models.LetterGrid;
 
 /**
