@@ -8,7 +8,6 @@ import com.studio47.managers.GameStateManager;
  */
 public abstract class GameState {
     protected GameStateManager gameStateManager;
-    protected DisplayContext displayContext;
 
     protected GameState(GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;

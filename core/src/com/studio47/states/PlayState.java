@@ -2,6 +2,7 @@ package com.studio47.states;
 
 import com.badlogic.gdx.Gdx;
 import com.studio47.managers.GameStateManager;
+import com.studio47.models.LetterBlock;
 import com.studio47.models.LetterGrid;
 
 /**
@@ -35,6 +36,15 @@ public class PlayState extends GameState {
         } else if (selecting && !Gdx.input.isTouched()) {
             selecting = false;
             checkWord();
+            letterGrid.deselectAll();
+        }
+
+        if (selecting) {
+            LetterBlock letterBlock = letterGrid.getTouchedBlock(Gdx.input.getX(), Gdx.input.getY());
+            if (letterBlock != null) {
+                letterBlock.setSelected(true);
+                word += letterBlock.getValue();
+            }
         }
         letterGrid.update(dt);
     }

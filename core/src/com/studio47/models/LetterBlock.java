@@ -44,11 +44,12 @@ public class LetterBlock extends Entity {
     }
 
     public void draw() {
-        SpriteBatch spriteBatch = DisplayContext.get().getSpriteBatch();
+        SpriteBatch spriteBatch = DisplayContext.getSpriteBatch();
         spriteBatch.draw(blockTexture, x, y);
-        spriteBatch.draw(coverTexture, x, y);
+        if (selected)
+            spriteBatch.draw(coverTexture, x, y);
 
-//        bitmapFont.draw(DisplayContext.get().getSpriteBatch(), "A", x + 20, y + 20);
+//        bitmapFont.draw(DisplayContext.getSpriteBatch(), "A", x + 20, y + 20);
     }
 
     public void dispose() {}
@@ -78,6 +79,10 @@ public class LetterBlock extends Entity {
     private void stopFalling() {
         fallDistance = 0;
         fallVelocity = 0;
+    }
+
+    public boolean isSelectable() {
+        return fallDistance == 0 && !selected;
     }
 
     public static int getWidth() {
