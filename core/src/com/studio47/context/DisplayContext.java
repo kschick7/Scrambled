@@ -20,31 +20,27 @@ public class DisplayContext {
         this.camera = camera;
     }
 
-    public SpriteBatch getSpriteBatch() {
-        return spriteBatch;
+    public static SpriteBatch getSpriteBatch() {
+        return displayContext.spriteBatch;
     }
 
-    public ShapeRenderer getShapeRenderer() {
-        return shapeRenderer;
+    public static ShapeRenderer getShapeRenderer() {
+        return displayContext.shapeRenderer;
     }
 
-    public Camera getCamera() {
-        return camera;
+    public static Camera getCamera() {
+        return displayContext.camera;
     }
 
-    public int getHeight() {
-        return (int)camera.viewportHeight;
+    public static int getScreenHeight() {
+        return (int)displayContext.camera.viewportHeight;
     }
 
-    public int getWidth() {
-        return (int)camera.viewportWidth;
+    public static int getScreenWidth() {
+        return (int)displayContext.camera.viewportWidth;
     }
 
-    public static void set(SpriteBatch batch, ShapeRenderer shapeRenderer, Camera camera) {
+    public static void init(SpriteBatch batch, ShapeRenderer shapeRenderer, Camera camera) {
         displayContext = new DisplayContext(batch, shapeRenderer, camera);
-    }
-
-    public static DisplayContext get() {
-        return displayContext;
     }
 }
