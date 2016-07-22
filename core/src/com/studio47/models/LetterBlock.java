@@ -81,4 +81,8 @@ public class LetterBlock extends Entity {
     public boolean isSelectable() {
         return fallDistance == 0 && !selected;
     }
+
+    public boolean isFalling() {
+        return fallDistance > 0;
+    }
 }

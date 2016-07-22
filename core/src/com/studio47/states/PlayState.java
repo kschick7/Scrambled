@@ -32,12 +32,12 @@ public class PlayState extends GameState {
     }
 
     public void update(float dt) {
-        if (!selecting && Gdx.input.isTouched()) {
+        if (!selecting && !letterGrid.areBlocksfalling() && Gdx.input.isTouched()) {
             selecting = true;
         } else if (selecting && !Gdx.input.isTouched()) {
             selecting = false;
             checkWord();
-            letterGrid.deselectAll();
+            letterGrid.removeSelectedAndReplace();
         }
 
         if (selecting) {

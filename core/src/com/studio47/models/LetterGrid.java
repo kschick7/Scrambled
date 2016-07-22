@@ -2,6 +2,7 @@ package com.studio47.models;
 
 import com.studio47.context.Constants;
 import com.studio47.context.DisplayContext;
+import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
 
 /**
  * Created by Kyle on 7/19/2016.
@@ -70,8 +71,10 @@ public class LetterGrid extends Entity {
     public LetterBlock getTouchedBlock() {
         for (int i = 0; i < Constants.GRID_COLUMN_LENGTH; i++) {
             for (int j = 0; j < Constants.GRID_ROW_LENGTH; j++) {
-                if (grid[i][j] != null && grid[i][j].isTouched())
+                if (grid[i][j] != null && grid[i][j].isTouched()) {
+                    System.out.println("Row: " + i + " Col: " + j);
                     return grid[i][j];
+                }
             }
         }
         return null;
@@ -84,5 +87,56 @@ public class LetterGrid extends Entity {
                     grid[i][j].setSelected(false);
             }
         }
+    }
+
+    public void removeSelectedAndReplace() {
+        for (int i = 0; i < Constants.GRID_COLUMN_LENGTH; i++) {
+            for (int j = 0; j < Constants.GRID_ROW_LENGTH; j++) {
+                if (grid[i][j] != null && grid[i][j].isSelected()) {
+                    grid[i][j] = null;
+                }
+            }
+        }
+        normalizeGrid();
+    }
+
+    /**
+     * Adjust blocks so that there are no empty spaces in between blocks in each column
+     * (No floating blocks, move all to lowest possible position). Add new blocks to columns
+     * to fill the grid
+     */
+    private void normalizeGrid() {
+        for (int col = 0; col < Constants.GRID_ROW_LENGTH; col++) {
+            int rowsToDescend = 0;
+            Integer missingRow = null;
+            for (int row = 0; row < Constants.GRID_COLUMN_LENGTH; row++) {
+                if (grid[row][col] == null) {
+                    rowsToDescend++;
+                    if (missingRow == null) {
+                        missingRow = row;
+                    }
+                } else if (rowsToDescend > 0) {
+                    grid[row][col].fallNumRows(rowsToDescend);
+                    grid[missingRow][col] = grid[row][col];
+                    grid[row][col] = null;
+                    missingRow++;
+                }
+            }
+
+            for (int i = 0; i < rowsToDescend; i++) {
+                addBlockToColumn(col, 'A');
+            }
+        }
+    }
+
+    public boolean areBlocksfalling() {
+        for (int i = 0; i < Constants.GRID_COLUMN_LENGTH; i++) {
+            for (int j = 0; j < Constants.GRID_ROW_LENGTH; j++) {
+                if (grid[i][j] != null && grid[i][j].isFalling()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
