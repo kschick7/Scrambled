@@ -20,14 +20,14 @@ public class PlayState extends GameState {
 
     public void init() {
         selecting = false;
+        System.out.println("Game State = PLAY");
+        letterGrid = new LetterGrid();
+        word = "";
 
         for (int i = 0; i < Constants.GRID_COLUMN_LENGTH; i++) {
             for (int j = 0; j < Constants.GRID_ROW_LENGTH; j++) {
                 letterGrid.addBlockToColumn(j, 'A');
             }
-            System.out.println("Game State = PLAY");
-            letterGrid = new LetterGrid();
-            word = "";
         }
     }
 
