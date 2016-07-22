@@ -11,6 +11,7 @@ public class LetterGrid extends Entity {
     private LetterBlock[][] grid;
     private int widthOffset;
     private int heightOffset;
+    private boolean adjusting;
 
     public LetterGrid() {
         super(0, 0, Constants.GRID_WIDTH, Constants.GRID_HEIGHT);
@@ -19,6 +20,7 @@ public class LetterGrid extends Entity {
         this.grid = new LetterBlock[Constants.GRID_COLUMN_LENGTH][Constants.GRID_ROW_LENGTH];
         this.x = widthOffset;
         this.y = heightOffset;
+        this.adjusting = true;
     }
 
     public void addBlockToColumn(int col, char value) {
@@ -27,6 +29,7 @@ public class LetterGrid extends Entity {
         float y = DisplayContext.getScreenHeight() + (Constants.BLOCK_HEIGHT + 60) * (1 + row)+ 20 * col;
         grid[row][col] = new LetterBlock(x, y, value);
         grid[row][col].fallToCoordinate(heightOffset + Constants.BLOCK_HEIGHT * row);
+        adjusting = true;
     }
 
     public int getColumnHeight(int col) {
@@ -38,6 +41,10 @@ public class LetterGrid extends Entity {
     }
 
     public void update(float dt) {
+        if (adjusting && !areBlocksfalling()) {
+            adjusting = false;
+        }
+
         for (int i = 0; i < Constants.GRID_COLUMN_LENGTH; i++) {
             for (int j = 0; j < Constants.GRID_ROW_LENGTH; j++) {
                 if (grid[i][j] != null)
@@ -129,7 +136,7 @@ public class LetterGrid extends Entity {
         }
     }
 
-    public boolean areBlocksfalling() {
+    private boolean areBlocksfalling() {
         for (int i = 0; i < Constants.GRID_COLUMN_LENGTH; i++) {
             for (int j = 0; j < Constants.GRID_ROW_LENGTH; j++) {
                 if (grid[i][j] != null && grid[i][j].isFalling()) {
@@ -138,5 +145,9 @@ public class LetterGrid extends Entity {
             }
         }
         return false;
+    }
+
+    public boolean isAdjusting() {
+        return adjusting;
     }
 }

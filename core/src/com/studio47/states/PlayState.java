@@ -19,20 +19,20 @@ public class PlayState extends GameState {
     }
 
     public void init() {
-        System.out.println("Game State = PLAY");
-        letterGrid = new LetterGrid();
-        word = "";
         selecting = false;
 
         for (int i = 0; i < Constants.GRID_COLUMN_LENGTH; i++) {
             for (int j = 0; j < Constants.GRID_ROW_LENGTH; j++) {
                 letterGrid.addBlockToColumn(j, 'A');
             }
+            System.out.println("Game State = PLAY");
+            letterGrid = new LetterGrid();
+            word = "";
         }
     }
 
     public void update(float dt) {
-        if (!selecting && !letterGrid.areBlocksfalling() && Gdx.input.isTouched()) {
+        if (!selecting && !letterGrid.isAdjusting() && Gdx.input.isTouched()) {
             selecting = true;
         } else if (selecting && !Gdx.input.isTouched()) {
             selecting = false;
