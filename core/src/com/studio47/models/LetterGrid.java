@@ -2,7 +2,6 @@ package com.studio47.models;
 
 import com.studio47.context.Constants;
 import com.studio47.context.DisplayContext;
-import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
 
 /**
  * Created by Kyle on 7/19/2016.
@@ -23,12 +22,26 @@ public class LetterGrid extends Entity {
         this.adjusting = true;
     }
 
-    public void addBlockToColumn(int col, char value) {
-        int row = getColumnHeight(col);
-        float x = widthOffset + col * Constants.BLOCK_WIDTH;
-        float y = DisplayContext.getScreenHeight() + (Constants.BLOCK_HEIGHT + 60) * (1 + row)+ 20 * col;
-        grid[row][col] = new LetterBlock(x, y, value);
-        grid[row][col].fallToCoordinate(heightOffset + Constants.BLOCK_HEIGHT * row);
+    private void initGrid() {
+        for (int i = 0; i < Constants.GRID_COLUMN_LENGTH; i++) {
+            for (int j = 0; j < Constants.GRID_ROW_LENGTH; j++) {
+                float x = widthOffset + j * Constants.BLOCK_WIDTH;
+                float y = DisplayContext.getScreenHeight() + (Constants.BLOCK_HEIGHT + 60) * (1 + i)+ 20 * j;
+                grid[i][j] = new LetterBlock(x, y, 'A');
+                grid[i][j].fallToCoordinate(heightOffset + Constants.BLOCK_HEIGHT * i);
+            }
+        }
+        adjusting = true;
+    }
+
+    public void addBlocksToColumn(int col, int numBlocks) {
+        for (int i = 0; i < numBlocks; i++) {
+            int row = getColumnHeight(col);
+            float x = widthOffset + col * Constants.BLOCK_WIDTH;
+            float y = DisplayContext.getScreenHeight() + (Constants.BLOCK_HEIGHT + 60) * i + 20 * col;
+            grid[row][col] = new LetterBlock(x, y, 'A');
+            grid[row][col].fallToCoordinate(heightOffset + Constants.BLOCK_HEIGHT * row);
+        }
         adjusting = true;
     }
 
@@ -41,7 +54,7 @@ public class LetterGrid extends Entity {
     }
 
     public void update(float dt) {
-        if (adjusting && !areBlocksfalling()) {
+        if (adjusting && !areBlocksFalling()) {
             adjusting = false;
         }
 
@@ -129,14 +142,11 @@ public class LetterGrid extends Entity {
                     missingRow++;
                 }
             }
-
-            for (int i = 0; i < rowsToDescend; i++) {
-                addBlockToColumn(col, 'A');
-            }
+            addBlocksToColumn(col, rowsToDescend);
         }
     }
 
-    private boolean areBlocksfalling() {
+    private boolean areBlocksFalling() {
         for (int i = 0; i < Constants.GRID_COLUMN_LENGTH; i++) {
             for (int j = 0; j < Constants.GRID_ROW_LENGTH; j++) {
                 if (grid[i][j] != null && grid[i][j].isFalling()) {

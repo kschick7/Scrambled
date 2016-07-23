@@ -24,11 +24,6 @@ public class PlayState extends GameState {
         letterGrid = new LetterGrid();
         word = "";
 
-        for (int i = 0; i < Constants.GRID_COLUMN_LENGTH; i++) {
-            for (int j = 0; j < Constants.GRID_ROW_LENGTH; j++) {
-                letterGrid.addBlockToColumn(j, 'A');
-            }
-        }
     }
 
     public void update(float dt) {
