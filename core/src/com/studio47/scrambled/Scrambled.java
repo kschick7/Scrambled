@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.studio47.context.Constants;
+import com.studio47.context.Dictionary;
 import com.studio47.context.DisplayContext;
 import com.studio47.managers.GameStateManager;
 
@@ -25,6 +27,7 @@ public class Scrambled extends ApplicationAdapter {
 
 		DisplayContext.init(new SpriteBatch(), new ShapeRenderer(), camera);
 		gameStateManager = new GameStateManager();
+		Dictionary.init(Constants.DICTIONARY_FILENAME);
 	}
 
 	@Override

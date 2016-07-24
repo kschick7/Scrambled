@@ -11,4 +11,6 @@ public class Constants {
     public static final int GRID_WIDTH = GRID_ROW_LENGTH * BLOCK_WIDTH;
     public static final int GRID_HEIGHT = GRID_COLUMN_LENGTH * BLOCK_HEIGHT;
     public static final float GRAVITY = 400;
+
+    public static final String DICTIONARY_FILENAME = "dictionary.txt";
 }
