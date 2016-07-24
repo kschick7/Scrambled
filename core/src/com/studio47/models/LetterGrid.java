@@ -21,19 +21,12 @@ public class LetterGrid extends Entity {
         this.y = heightOffset;
         this.adjusting = true;
         initGrid();
-//        normalizeGrid();
     }
 
     private void initGrid() {
-        for (int i = 0; i < Constants.GRID_COLUMN_LENGTH; i++) {
-            for (int j = 0; j < Constants.GRID_ROW_LENGTH; j++) {
-                float x = widthOffset + j * Constants.BLOCK_WIDTH;
-                float y = DisplayContext.getScreenHeight() + (Constants.BLOCK_HEIGHT + 60) * (1 + i)+ 20 * j;
-                grid[i][j] = new LetterBlock(x, y, 'A');
-                grid[i][j].fallToCoordinate(heightOffset + Constants.BLOCK_HEIGHT * i);
-            }
+        for (int i = 0; i < Constants.GRID_ROW_LENGTH; i++) {
+            addBlocksToColumn(i, Constants.GRID_COLUMN_LENGTH);
         }
-        adjusting = true;
     }
 
     public void addBlocksToColumn(int col, int numBlocks) {
