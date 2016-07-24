@@ -76,6 +76,7 @@ public class LetterBlock extends Entity {
     private void stopFalling() {
         fallDistance = 0;
         fallVelocity = 0;
+        y = Math.round(y);
     }
 
     public boolean isSelectable() {
@@ -84,5 +85,10 @@ public class LetterBlock extends Entity {
 
     public boolean isFalling() {
         return fallDistance > 0;
+    }
+
+    public boolean isAdjacentTo(LetterBlock other) {
+        return ((this.x == other.x && Math.abs(this.y - other.y) == height)
+                || (this.y == other.y && Math.abs(this.x - other.x) == width));
     }
 }

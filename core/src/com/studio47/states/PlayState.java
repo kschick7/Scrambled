@@ -1,7 +1,6 @@
 package com.studio47.states;
 
 import com.badlogic.gdx.Gdx;
-import com.studio47.context.Constants;
 import com.studio47.managers.GameStateManager;
 import com.studio47.models.LetterBlock;
 import com.studio47.models.LetterGrid;
@@ -11,6 +10,7 @@ import com.studio47.models.LetterGrid;
  */
 public class PlayState extends GameState {
     private LetterGrid letterGrid;
+    private LetterBlock lastSelected;
     private String word;
     private boolean selecting;
 
@@ -23,7 +23,7 @@ public class PlayState extends GameState {
         System.out.println("Game State = PLAY");
         letterGrid = new LetterGrid();
         word = "";
-
+        lastSelected = null;
     }
 
     public void update(float dt) {
@@ -31,14 +31,17 @@ public class PlayState extends GameState {
             selecting = true;
         } else if (selecting && !Gdx.input.isTouched()) {
             selecting = false;
+            lastSelected = null;
             checkWord();
             letterGrid.removeSelectedAndReplace();
         }
 
         if (selecting) {
             LetterBlock letterBlock = letterGrid.getTouchedBlock();
-            if (letterBlock != null) {
+            if (letterBlock != null && !letterBlock.isSelected()
+                    && (lastSelected == null || lastSelected.isAdjacentTo(letterBlock))) {
                 letterBlock.setSelected(true);
+                lastSelected = letterBlock;
                 word += letterBlock.getValue();
             }
         }

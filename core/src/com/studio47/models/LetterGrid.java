@@ -20,6 +20,8 @@ public class LetterGrid extends Entity {
         this.x = widthOffset;
         this.y = heightOffset;
         this.adjusting = true;
+        initGrid();
+//        normalizeGrid();
     }
 
     private void initGrid() {
