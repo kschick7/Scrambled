@@ -29,20 +29,20 @@ public class PlayState extends GameState {
     public void update(float dt) {
         if (!selecting && !letterGrid.isAdjusting() && Gdx.input.isTouched()) {
             selecting = true;
-        } else if (selecting && !Gdx.input.isTouched()) {
-            selecting = false;
-            lastSelected = null;
-            checkWord();
-            letterGrid.removeSelectedAndReplace();
-        }
-
-        if (selecting) {
-            LetterBlock letterBlock = letterGrid.getTouchedBlock();
-            if (letterBlock != null && !letterBlock.isSelected()
-                    && (lastSelected == null || lastSelected.isAdjacentTo(letterBlock))) {
-                letterBlock.setSelected(true);
-                lastSelected = letterBlock;
-                word += letterBlock.getValue();
+        } else if (selecting) {
+            if (!Gdx.input.isTouched() || !letterGrid.isTouched()) {
+                selecting = false;
+                lastSelected = null;
+                checkWord();
+                letterGrid.removeSelectedAndReplace();
+            } else {
+                LetterBlock letterBlock = letterGrid.getTouchedBlock();
+                if (letterBlock != null && !letterBlock.isSelected()
+                        && (lastSelected == null || lastSelected.isAdjacentTo(letterBlock))) {
+                    letterBlock.setSelected(true);
+                    lastSelected = letterBlock;
+                    word += letterBlock.getValue();
+                }
             }
         }
         letterGrid.update(dt);
