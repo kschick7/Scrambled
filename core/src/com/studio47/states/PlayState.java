@@ -1,7 +1,9 @@
 package com.studio47.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.studio47.context.Dictionary;
+import com.studio47.context.DisplayContext;
 import com.studio47.managers.GameStateManager;
 import com.studio47.models.LetterBlock;
 import com.studio47.models.LetterGrid;
@@ -14,6 +16,7 @@ public class PlayState extends GameState {
     private LetterBlock lastSelected;
     private String word;
     private boolean selecting;
+    private BitmapFont bitmapFont;
 
     public PlayState(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -25,6 +28,7 @@ public class PlayState extends GameState {
         letterGrid = new LetterGrid();
         word = "";
         lastSelected = null;
+        bitmapFont = new BitmapFont();
     }
 
     public void update(float dt) {
@@ -55,6 +59,7 @@ public class PlayState extends GameState {
 
     public void draw() {
         letterGrid.draw();
+        drawWord();
     }
 
     public void dispose() {
@@ -64,5 +69,11 @@ public class PlayState extends GameState {
     public boolean checkWord() {
         System.out.println(word);
         return Dictionary.contains(word);
+    }
+
+    public void drawWord() {
+        float y = letterGrid.getHeightOffset() / 2 + 5;
+        float x = DisplayContext.getScreenWidth() / 2 - word.length() * 5;
+        bitmapFont.draw(DisplayContext.getSpriteBatch(), word, x, y);
     }
 }

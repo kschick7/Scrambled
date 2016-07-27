@@ -157,4 +157,12 @@ public class LetterGrid extends Entity {
     public boolean isAdjusting() {
         return adjusting;
     }
+
+    public int getWidthOffset() {
+        return widthOffset;
+    }
+
+    public int getHeightOffset() {
+        return heightOffset;
+    }
 }
