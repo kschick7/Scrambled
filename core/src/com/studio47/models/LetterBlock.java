@@ -1,6 +1,7 @@
 package com.studio47.models;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.studio47.context.Constants;
 import com.studio47.context.DisplayContext;
@@ -15,6 +16,7 @@ public class LetterBlock extends Entity {
     private float fallVelocity;
     private Texture blockTexture;
     private Texture coverTexture;
+    private BitmapFont bitmapFont;
 
     public LetterBlock(float x, float y, char value) {
         super(x, y, Constants.BLOCK_WIDTH, Constants.BLOCK_HEIGHT);
@@ -24,6 +26,7 @@ public class LetterBlock extends Entity {
         this.fallVelocity = 0;
         this.blockTexture = new Texture("A_block.png");
         this.coverTexture = new Texture("block_selected_cover.png");
+        this.bitmapFont = new BitmapFont();
     }
 
     public void update(float dt) {
@@ -46,7 +49,7 @@ public class LetterBlock extends Entity {
         if (selected)
             spriteBatch.draw(coverTexture, x, y);
 
-//        bitmapFont.draw(DisplayContext.getSpriteBatch(), "A", x + 20, y + 20);
+        bitmapFont.draw(DisplayContext.getSpriteBatch(), String.valueOf(value), x + 30, y + 30);
     }
 
     public void dispose() {}

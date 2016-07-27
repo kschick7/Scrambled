@@ -2,6 +2,7 @@ package com.studio47.models;
 
 import com.studio47.context.Constants;
 import com.studio47.context.DisplayContext;
+import com.studio47.managers.LetterManager;
 
 /**
  * Created by Kyle on 7/19/2016.
@@ -11,6 +12,7 @@ public class LetterGrid extends Entity {
     private int widthOffset;
     private int heightOffset;
     private boolean adjusting;
+    private LetterManager letterManager;
 
     public LetterGrid() {
         super(0, 0, Constants.GRID_WIDTH, Constants.GRID_HEIGHT);
@@ -20,6 +22,7 @@ public class LetterGrid extends Entity {
         this.x = widthOffset;
         this.y = heightOffset;
         this.adjusting = true;
+        this.letterManager = new LetterManager(Constants.LETTER_WEIGHTS_PATH);
         initGrid();
     }
 
@@ -34,7 +37,7 @@ public class LetterGrid extends Entity {
             int row = getColumnHeight(col);
             float x = widthOffset + col * Constants.BLOCK_WIDTH;
             float y = DisplayContext.getScreenHeight() + (Constants.BLOCK_HEIGHT + 60) * i + 20 * col;
-            grid[row][col] = new LetterBlock(x, y, 'A');
+            grid[row][col] = new LetterBlock(x, y, letterManager.next());
             grid[row][col].fallToCoordinate(heightOffset + Constants.BLOCK_HEIGHT * row);
         }
         adjusting = true;
@@ -87,7 +90,6 @@ public class LetterGrid extends Entity {
         for (int i = 0; i < Constants.GRID_COLUMN_LENGTH; i++) {
             for (int j = 0; j < Constants.GRID_ROW_LENGTH; j++) {
                 if (grid[i][j] != null && grid[i][j].isTouched()) {
-                    System.out.println("Row: " + i + " Col: " + j);
                     return grid[i][j];
                 }
             }

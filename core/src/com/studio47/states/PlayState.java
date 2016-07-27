@@ -1,6 +1,7 @@
 package com.studio47.states;
 
 import com.badlogic.gdx.Gdx;
+import com.studio47.context.Dictionary;
 import com.studio47.managers.GameStateManager;
 import com.studio47.models.LetterBlock;
 import com.studio47.models.LetterGrid;
@@ -33,8 +34,12 @@ public class PlayState extends GameState {
             if (!Gdx.input.isTouched() || !letterGrid.isTouched()) {
                 selecting = false;
                 lastSelected = null;
-                checkWord();
-                letterGrid.removeSelectedAndReplace();
+                if (checkWord()) {
+                    letterGrid.removeSelectedAndReplace();
+                } else {
+                    letterGrid.deselectAll();
+                }
+                word = "";
             } else {
                 LetterBlock letterBlock = letterGrid.getTouchedBlock();
                 if (letterBlock != null && !letterBlock.isSelected()
@@ -56,5 +61,8 @@ public class PlayState extends GameState {
 
     }
 
-    public void checkWord() {}
+    public boolean checkWord() {
+        System.out.println(word);
+        return Dictionary.contains(word);
+    }
 }

@@ -19,6 +19,6 @@ public class Dictionary {
     }
 
     public static boolean contains(String word) {
-        return words.contains(word);
+        return words.contains(word.toLowerCase());
     }
 }
