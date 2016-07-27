@@ -13,10 +13,6 @@ public class MenuState extends GameState {
         super(gameStateManager);
     }
 
-    public void init() {
-        System.out.println("Hello World");
-    }
-
     public void update(float dt) {
 
     }

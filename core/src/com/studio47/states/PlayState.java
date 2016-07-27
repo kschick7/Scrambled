@@ -20,15 +20,12 @@ public class PlayState extends GameState {
 
     public PlayState(GameStateManager gameStateManager) {
         super(gameStateManager);
-    }
-
-    public void init() {
-        selecting = false;
+        this.selecting = false;
         System.out.println("Game State = PLAY");
-        letterGrid = new LetterGrid();
-        word = "";
-        lastSelected = null;
-        bitmapFont = new BitmapFont();
+        this.letterGrid = new LetterGrid();
+        this.word = "";
+        this.lastSelected = null;
+        this.bitmapFont = new BitmapFont();
     }
 
     public void update(float dt) {

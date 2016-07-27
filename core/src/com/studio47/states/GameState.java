@@ -11,10 +11,8 @@ public abstract class GameState {
 
     protected GameState(GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
-        init();
     }
 
-    public abstract void init();
     public abstract void update(float dt);
     public abstract void draw();
     public abstract void dispose();
