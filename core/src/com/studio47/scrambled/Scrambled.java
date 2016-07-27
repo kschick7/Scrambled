@@ -28,7 +28,7 @@ public class Scrambled extends ApplicationAdapter {
 
 		DisplayContext.init(new SpriteBatch(), new ShapeRenderer(), camera);
 		gameStateManager = new GameStateManager();
-		Dictionary.init(Constants.DICTIONARY_PATH);
+		Dictionary.init();
 	}
 
 	@Override

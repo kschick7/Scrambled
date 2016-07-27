@@ -7,6 +7,7 @@ import com.studio47.context.DisplayContext;
 import com.studio47.managers.GameStateManager;
 import com.studio47.models.LetterBlock;
 import com.studio47.models.LetterGrid;
+import com.studio47.models.Score;
 
 /**
  * Created by Kyle on 7/18/2016.
@@ -17,6 +18,7 @@ public class PlayState extends GameState {
     private String word;
     private boolean selecting;
     private BitmapFont bitmapFont;
+    private Score score;
 
     public PlayState(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -26,6 +28,7 @@ public class PlayState extends GameState {
         this.word = "";
         this.lastSelected = null;
         this.bitmapFont = new BitmapFont();
+        this.score = new Score(0, DisplayContext.getScreenHeight() - (letterGrid.getHeightOffset() / 2));
     }
 
     public void update(float dt) {
@@ -37,6 +40,7 @@ public class PlayState extends GameState {
                 lastSelected = null;
                 if (checkWord()) {
                     letterGrid.removeSelectedAndReplace();
+                    score.updateScore(word);
                 } else {
                     letterGrid.deselectAll();
                 }
@@ -52,11 +56,13 @@ public class PlayState extends GameState {
             }
         }
         letterGrid.update(dt);
+        score.update(dt);
     }
 
     public void draw() {
         letterGrid.draw();
         drawWord();
+        score.draw();
     }
 
     public void dispose() {
@@ -65,7 +71,7 @@ public class PlayState extends GameState {
 
     public boolean checkWord() {
         System.out.println(word);
-        return Dictionary.contains(word);
+        return (word.length() > 1) ? Dictionary.contains(word) : false;
     }
 
     public void drawWord() {

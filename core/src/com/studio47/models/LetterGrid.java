@@ -12,7 +12,6 @@ public class LetterGrid extends Entity {
     private int widthOffset;
     private int heightOffset;
     private boolean adjusting;
-    private LetterManager letterManager;
 
     public LetterGrid() {
         super(0, 0, Constants.GRID_WIDTH, Constants.GRID_HEIGHT);
@@ -22,7 +21,6 @@ public class LetterGrid extends Entity {
         this.x = widthOffset;
         this.y = heightOffset;
         this.adjusting = true;
-        this.letterManager = new LetterManager(Constants.LETTER_WEIGHTS_PATH);
         initGrid();
     }
 
@@ -37,7 +35,7 @@ public class LetterGrid extends Entity {
             int row = getColumnHeight(col);
             float x = widthOffset + col * Constants.BLOCK_WIDTH;
             float y = DisplayContext.getScreenHeight() + (Constants.BLOCK_HEIGHT + 60) * i + 20 * col;
-            grid[row][col] = new LetterBlock(x, y, letterManager.next());
+            grid[row][col] = new LetterBlock(x, y, LetterManager.next());
             grid[row][col].fallToCoordinate(heightOffset + Constants.BLOCK_HEIGHT * row);
         }
         adjusting = true;

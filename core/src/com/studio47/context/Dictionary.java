@@ -12,13 +12,17 @@ import java.util.Set;
 public class Dictionary {
     private static Set<String> words;
 
-    public static void init(String filename) {
-        FileHandle file = new FileHandle(filename);
+    private Dictionary() {}
+
+    public static void init() {
+        FileHandle file = new FileHandle(Constants.DICTIONARY_PATH);
         String fileStr = file.readString();
         words = new HashSet<String>(Arrays.asList(fileStr.split("\n")));
     }
 
     public static boolean contains(String word) {
+        if (words == null)
+            init();
         return words.contains(word.toLowerCase());
     }
 }

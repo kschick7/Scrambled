@@ -1,6 +1,7 @@
 package com.studio47.managers;
 
 import com.badlogic.gdx.files.FileHandle;
+import com.studio47.context.Constants;
 
 import java.util.*;
 
@@ -8,33 +9,39 @@ import java.util.*;
  * Created by Kyle on 7/24/2016.
  */
 public class LetterManager {
-    private Map<Character, Integer> weights;
-    private List<Character> weightedList;
-    private Random random;
+    private static Map<Character, Integer> weights;
+    private static List<Character> weightedList;
+    private static Random random;
 
-    public LetterManager(String path) {
-        this.weights = new HashMap<Character, Integer>();
-        this.weightedList = new ArrayList<Character>();
+    private LetterManager() {}
 
-        FileHandle file = new FileHandle(path);
+    public static void init() {
+        weights = new HashMap<Character, Integer>();
+        weightedList = new ArrayList<Character>();
+
+        FileHandle file = new FileHandle(Constants.LETTER_WEIGHTS_PATH);
         String[] inputs = file.readString().split("\n");
         for (String input : inputs) {
             Character c = input.split(" ")[0].charAt(0);
             int weight = Integer.valueOf(input.split(" ")[1]);
-            this.weights.put(c, weight);
+            weights.put(c, weight);
             for (int i = 0; i < weight; i++) {
-                this.weightedList.add(c);
+                weightedList.add(c);
             }
         }
 
-        this.random = new Random();
+        random = new Random();
     }
 
-    public Character next() {
+    public static Character next() {
+        if (weightedList == null)
+            init();
         return weightedList.get(random.nextInt(weightedList.size()));
     }
 
-    public int getWeight(Character c) {
+    public static int getWeight(Character c) {
+        if (weights == null)
+            init();
         return weights.get(c);
     }
 }
